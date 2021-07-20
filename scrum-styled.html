@@ -1,0 +1,167 @@
+<!-- development version, includes helpful console warnings -->
+<link rel="stylesheet" href="https://unpkg.com/98.css">
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<!-- production version, optimized for size and speed -->
+<!-- TODO remove in prod -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>-->
+<!-- end TODO-->
+<div class="window" style="width: 300px">
+    <div class="title-bar">
+      <div class="title-bar-text">A Window With Stuff In It</div>
+      <div class="title-bar-controls">
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body">
+        <div id="app">
+            {{ message }}
+        </div>
+        <div id="app-2">{{ message }}</div>
+
+    </div>
+  </div>
+  
+  <div id="app-3">
+    <span v-if="seen">Now you see me</span>
+  </div>
+  <div class="window" style="width: 1920px">
+    <div class="title-bar">
+      <div class="title-bar-text">A Window With Stuff In It</div>
+      <div class="title-bar-controls">
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <div class="window-body">
+  <h4>Scrum Board</h4>
+  <table>
+    <tr>
+        <th>Ice Box</th>
+        <th>Todo</th>
+        <th>Current Sprint</th>
+    </tr>
+
+    </tr>
+    <tr>
+        <td>
+            <div id="done">
+                <ul>
+                    <li v-for="sprint in done">
+                        {{ sprint.text }} <button>Complete</button>
+                    </li>
+                </ul>
+            </div>
+        </td>
+    </tr>
+        
+    
+          <td>
+            <div id="todo">
+                <ul>
+                    <li v-for="todo in todos">
+                        {{ todo.text }} <button>Complete</button>
+                    </li>
+                </ul>
+          </div>
+        </td>
+        <td>
+
+            <div id="current_sprint">
+                <ul>
+                    <li v-for="sprint in current_sprint">
+                        {{ sprint.text }} <button>Complete</button>
+                    </li>
+                </ul>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>
+          <div id="done">
+              <ul>
+                  <li v-for="d in done">
+                      {{ d.text }} <button>Reward</button>
+                  </li>
+              </ul>
+        </div>
+        </td>
+    </tr>
+      <tr>
+          <td>
+            <div id="chores">
+                <ul>
+                    <li v-for="chrore in chores">
+                        {{ chrore.text }} <button>Mark as Done for this month.</button>
+                    </li>
+                </ul>
+          </div>
+          </td>
+      </tr>
+  </table>
+    <script>
+
+    var app = new Vue({
+        el: '#app',
+        data: {
+          message: 'This is a simple scrum board created by Brian Herman for my Zoro Tools interview!'
+        }
+      })
+    var app2 = new Vue({
+      el: '#app-2',
+      data: {
+        message: 'You loaded this page on ' + new Date().toLocaleString()
+      }
+    })
+    var app3 = new Vue({
+            el: '#app-3',
+            data: {
+                seen: false,
+            }
+    })
+    var todo = new Vue({
+    el: '#todo',
+    data: {
+        todos: [
+        { text: 'Learn JavaScript the way Zoro likes it.' },
+        { text: 'Learn and master Vue' },
+        { text: 'Build something awesome' }
+        ]
+    }
+    })
+    var app4 = new Vue({
+    el: '#current_sprint',
+    data: {
+        current_sprint: [
+        { text: 'Get A Job at Zoro Tools' },
+        { text: 'Learn error messages of vue' },
+        { text: 'Forget everything I know about old job.' },
+        { text: 'Become a blank slate' }
+        ]
+    }
+    })
+    var app5 = new Vue({
+    el: '#chores',
+    data: {
+        chores: [
+        { text: 'Pay Bills on Time' },
+        { text: 'Play Sonic to Destress' },
+        { text: 'Find new friends' },
+        { text: 'Get a girlfriend' }
+        ]
+    }
+    })
+    var app5 = new Vue({
+    el: '#done',
+    data: {
+        done: [
+        { text: 'Pay Bills on Time' },
+        { text: 'Play Sonic to Destress' },
+        { text: 'Find new friends' },
+        { text: 'Get a girlfriend' }
+        ]
+    }
+    })
+
+
+</script>
+    
