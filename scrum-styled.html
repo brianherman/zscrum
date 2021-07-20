@@ -3,165 +3,260 @@
 
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <!-- production version, optimized for size and speed -->
-<!-- TODO remove in prod -->
+<!-- backlog remove in prod -->
 <!-- <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>-->
-<!-- end TODO-->
-<div class="window" style="width: 300px">
-    <div class="title-bar">
-      <div class="title-bar-text">A Window With Stuff In It</div>
-      <div class="title-bar-controls">
-        <button aria-label="Close"></button>
-      </div>
-    </div>
-    <div class="window-body">
-        <div id="app">
-            {{ message }}
-        </div>
-        <div id="app-2">{{ message }}</div>
-
+<!-- end backlog-->
+<div class="window" style="width: 25%;">
+  <div class="title-bar">
+    <div class="title-bar-text">About</div>
+    <div class="title-bar-controls">
+      <button aria-label="Close"></button>
     </div>
   </div>
-  
-  <div id="app-3">
-    <span v-if="seen">Now you see me</span>
-  </div>
-  <div class="window" style="width: 1920px">
-    <div class="title-bar">
-      <div class="title-bar-text">A Window With Stuff In It</div>
-      <div class="title-bar-controls">
-        <button aria-label="Close"></button>
-      </div>
+  <div class="window-body">
+    <div id="app">
+      {{ message }}
     </div>
-    <div class="window-body">
-  <h4>Scrum Board</h4>
-  <table>
-    <tr>
-        <th>Ice Box</th>
-        <th>Todo</th>
-        <th>Current Sprint</th>
-    </tr>
+  </div>
+</div>
 
-    </tr>
-    <tr>
-        <td>
-            <div id="done">
-                <ul>
-                    <li v-for="sprint in done">
-                        {{ sprint.text }} <button>Complete</button>
-                    </li>
-                </ul>
-            </div>
-        </td>
-    </tr>
-        
-    
+
+</div>
+<div class="window" style="width: 100%">
+  <div class="title-bar">
+    <div class="title-bar-text">
+      <div id="app-2">Scrum Board as of {{ message }}</div>
+    </div>
+    <div class="title-bar-controls">
+      <button aria-label="Close"></button>
+    </div>
+  </div>
+  <div class="window-body">
+    <h4 style="text-align: center;">Scrum Board</h5>
+
+    <table style="margin-left: auto; margin-right: auto;">
+      <tbody>
+        <tr>
+          <th>Ice Box</th>
+          <th>Backlog</th>
+          <th>Current Sprint</th>
+          <th>Done</th>
+          <th>Chores</th>
+        </tr>
+
+        </tr>
+        <tr>
           <td>
-            <div id="todo">
-                <ul>
-                    <li v-for="todo in todos">
-                        {{ todo.text }} <button>Complete</button>
-                    </li>
-                </ul>
+            <div id="icebox">
+              <ul>
+                <li v-for="ice in icebox">
+                  {{ ice.text }} <br> <button @click="move_to_backlog">Move to backlog.</button>
+                </li>
+              </ul>
+            </div>
+          </td>
+
+        <td>
+          <div id="backlog">
+            <ul>
+              <li v-for="backlog in backlogs">
+                {{ backlog.text }} <br><button @click="move_to_current_sprint">Move to Current Sprint</button>
+              </li>
+            </ul>
           </div>
         </td>
         <td>
 
-            <div id="current_sprint">
-                <ul>
-                    <li v-for="sprint in current_sprint">
-                        {{ sprint.text }} <button>Complete</button>
-                    </li>
-                </ul>
+          <div id="current_sprint">
+            <ul>
+              <li v-for="sprint in current_sprint">
+                {{ sprint.text }} <br> <button @click="mark_as_complete">Mark as Complete</button>
+              </li>
+            </ul>
           </div>
         </td>
-      </tr>
-      <tr>
+
         <td>
           <div id="done">
-              <ul>
-                  <li v-for="d in done">
-                      {{ d.text }} <button>Reward</button>
-                  </li>
-              </ul>
-        </div>
-        </td>
-    </tr>
-      <tr>
-          <td>
-            <div id="chores">
-                <ul>
-                    <li v-for="chrore in chores">
-                        {{ chrore.text }} <button>Mark as Done for this month.</button>
-                    </li>
-                </ul>
+            <ul>
+              <li v-for="item in done">
+                {{ item.text }} <br> <button @click="archive">Archive</button>
+              </li>
+            </ul>
           </div>
-          </td>
-      </tr>
-  </table>
-    <script>
+        </td>
 
-    var app = new Vue({
-        el: '#app',
-        data: {
-          message: 'This is a simple scrum board created by Brian Herman for my Zoro Tools interview!'
-        }
-      })
-    var app2 = new Vue({
-      el: '#app-2',
-      data: {
-        message: 'You loaded this page on ' + new Date().toLocaleString()
-      }
-    })
-    var app3 = new Vue({
-            el: '#app-3',
-            data: {
-                seen: false,
-            }
-    })
-    var todo = new Vue({
-    el: '#todo',
+        <td>
+          <div id="chores">
+            <ul>
+              <li v-for="chrore in chores">
+                {{ chrore.text }} <br> <button>Mark as Done for this month.</button>
+              </li>
+            </ul>
+          </div>
+        </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<div id="hire">
+  <div class="window-body" style="text-align:center">
+    <div class="window" style="width: 9%;">
+      <div class="title-bar">
+        <div class="title-bar-text" style="z-index: 10;">Please!!!!</div>
+        <div class="title-bar-controls">
+          <button aria-label="Minimize"></button>
+          <button aria-label="Maximize"></button>
+          <button aria-label="Close"></button>
+        </div>
+      </div>
+      <p>Do you want to hire me?</p>
+
+      <button @click="trigger">Yes</button><button @click="trigger">Yes</button>
+
+    </div>
+  </div>
+</div>
+</div>
+</div>
+
+<div class="window-body" style="text-align:center"  class="control">
+  <div class="window" style="width: 17%">
+    <div class="title-bar">
+      <div class="title-bar-text">Feedback!</div>
+      <div class="title-bar-controls">
+        <button aria-label="Minimize"></button>
+        <button aria-label="Maximize"></button>
+        <button aria-label="Close"></button>
+      </div>
+    </div>
+    <p>Why not?</p>
+    <div id="tellme">
+    <p><input type="text"></p>
+    <p><button>Tell me</button><button>Don't</button></p>
+
+  </div></div>
+<script>
+
+  var app = new Vue({
+    el: '#app',
     data: {
-        todos: [
-        { text: 'Learn JavaScript the way Zoro likes it.' },
-        { text: 'Learn and master Vue' },
-        { text: 'Build something awesome' }
-        ]
+      message: 'This is a simple scrum board created by Brian Herman for my Zoro Tools interview!'
     }
-    })
-    var app4 = new Vue({
+  })
+  var app2 = new Vue({
+    el: '#app-2',
+    data: {
+      message: 'You loaded this page on ' + new Date().toLocaleString()
+    }
+  })
+  var backlog = new Vue({
+    el: '#backlog',
+    data: {
+      backlogs: [
+        { text: 'Learn error messages of vue/es6 and 7' },
+        { text: 'Learn JavaScript the way Zoro likes it.' },
+        { text: 'Build something awesome' },
+        { text: 'Learn and master Vue' }
+      ]
+    },
+    methods:{
+      move_to_backlog(){
+        fetch('http://example.com/move_to_backlog.json')
+          .then(response => response.json())
+          .then(data => console.log(data));
+      }
+    }
+  })
+  var app4 = new Vue({
     el: '#current_sprint',
     data: {
-        current_sprint: [
+      current_sprint: [
+
         { text: 'Get A Job at Zoro Tools' },
-        { text: 'Learn error messages of vue' },
         { text: 'Forget everything I know about old job.' },
-        { text: 'Become a blank slate' }
-        ]
+        { text: 'Become a blank slate' },
+        { text: 'Sell comic book collection on Friday' }
+
+      ]
+    },
+    methods:{
+      move_to_current_sprint(){
+        fetch('http://example.com/move_to_current_sprint.json')
+          .then(response => response.json())
+          .then(data => console.log(data));
+      }
     }
-    })
-    var app5 = new Vue({
+  })
+  var app5 = new Vue({
     el: '#chores',
     data: {
-        chores: [
+      chores: [
         { text: 'Pay Bills on Time' },
-        { text: 'Play Sonic to Destress' },
+        { text: 'Play Sonic to Relax' },
+      ]
+    },
+    methods:{
+      archive(){
+        fetch('http://example.com/endpoint.json')
+          .then(response => response.json())
+          .then(data => console.log(data));
+        }
+      }
+    })
+  var icebox = new Vue({
+    el: '#icebox',
+    data: {
+      icebox: [
         { text: 'Find new friends' },
         { text: 'Get a girlfriend' }
-        ]
+      ]
+    },
+    methods: {
+      move_to_backlog() {
+        fetch('http://example.com/endpoint.json')
+          .then(response => response.json())
+          .then(data => console.log(data));
+      }
     }
-    })
-    var app5 = new Vue({
+  })
+  var done = new Vue({
     el: '#done',
     data: {
-        done: [
-        { text: 'Pay Bills on Time' },
-        { text: 'Play Sonic to Destress' },
-        { text: 'Find new friends' },
-        { text: 'Get a girlfriend' }
-        ]
+      done: [
+        { text: 'Quit Job' },
+        { text: 'Find good recruiting firm on amazon' },
+        { text: 'Update and weaponize resume' },
+        { text: 'Cash out my mother\'s savings she created for me years ago incase I lost my job.' }
+      ]
     }
-    })
-
-
+  })
+  var hire = new Vue({
+    el: '#hire',
+    data: {
+      message: "Yes"
+    },
+    methods: {
+      trigger() {
+        fetch('http://example.com/endpoint.json')
+          .then(response => response.json())
+          .then(data => console.log(data));
+      }
+    }
+  });
+  var tellme = new Vue({
+    el: '#tellme',
+    data: {
+      message: "Yes"
+    },
+    methods: {
+      trigger() {
+        fetch('http://example.com/telme.json')
+          .then(response => response.json())
+          .then(data => console.log(data));
+      }
+    }
+  });
 </script>
-    
+
